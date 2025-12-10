@@ -4,8 +4,10 @@
 /**
  * Renders the HTML Head and opens the Body
  */
-function page_start($page_title = 'Bootstrap Demo') {
+function page_start($page_title = 'Aplikasi') {
+  
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>

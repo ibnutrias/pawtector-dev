@@ -1,3 +1,6 @@
+<?php
+
+?>
 <style>
     body {
         padding: 0;
@@ -92,7 +95,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">Beranda</a>
+                    <a class="nav-link" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#layanan">Layanan</a>
@@ -101,10 +104,21 @@
                     <a class="nav-link" href="tentang.php">Tentang</a>
                 </li>
             </ul>
-
-            <div class="d-flex">
-                <a href="/registrasi" class="btn btn-black">Daftar</a>
-            </div>
+            <?php
+            
+            if (isset($_SESSION)) {
+                echo 1;
+                ?>
+                <div class="d-flex">
+                    <a href="/logout.php" class="btn btn-black">Keluar</a>
+                </div>
+                <?php
+                header("Location: ../index.php");
+            } else { ?>
+                <div class="d-flex">
+                    <a href="/registrasi" class="btn btn-black">Daftar</a>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </nav>

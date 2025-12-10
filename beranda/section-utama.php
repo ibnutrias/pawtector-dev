@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 order-1 order-lg-2" style="rotate: -2deg;">
+            <div class="col-lg-6 order-1 order-lg-2" style="rotate: -3deg;">
                 <div class="p-2 bg-white rounded-4 shadow-sm text-center">
                     <video class="w-100 cosqcvideocontainer" autoplay muted loop>
                         <source src="/assets/video/home-video.mp4" type="video/mp4">

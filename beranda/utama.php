@@ -1,6 +1,6 @@
 <?php
 include_once 'core/page.php';
-page_start('Pawtector - Home');
+page_start('Rumah');
 include_once 'komponen/navbar.php';
 ?>
 <style>
