@@ -9,7 +9,7 @@
                     Perawatan hewan yang mudah, aman, dan terpercaya. Semua kebutuhan kesehatan peliharaan Anda ada di sini.
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-start">
-                    <a href="#" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">Mulai Perawatan</a>
+                    <a href="/registrasi" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">Mulai Perawatan</a>
                     <a href="tentang.php" class="btn btn-outline-secondary btn-lg px-5 rounded-pill">Tentang Kami</a>
                 </div>
 

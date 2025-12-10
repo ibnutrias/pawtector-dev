@@ -89,7 +89,7 @@
         padding: 2px;
         transition: transform 0.2s ease;
     }
-    
+
     .pill-group:hover {
         transform: translateY(-1px);
     }
@@ -106,12 +106,12 @@
     }
 
     .pill-btn-sub {
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
         padding: 8px 18px 8px 14px;
         text-decoration: none;
         font-size: 0.85rem;
         font-weight: 500;
-        border-left: 1px solid rgba(255,255,255,0.2);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
         border-top-right-radius: 50px;
         border-bottom-right-radius: 50px;
         transition: all 0.2s ease;
@@ -120,31 +120,32 @@
     .pill-btn-main:hover {
         color: #e0e0e0;
     }
-    
+
     .pill-btn-sub:hover {
         color: #fff;
-        background-color: rgba(255,255,255,0.1);
+        background-color: rgba(255, 255, 255, 0.1);
     }
 </style>
 
-<nav class="navbar navbar-expand-lg  sticky-top py-3  navbar-custom">
+<nav class="navbar navbar-expand-lg  sticky-top py-3  navbar-custom mb-3">
     <div class="container">
-        <a class="navbar-brand" href="/"><img src='assets/images/pawpark-logo.svg' width="100" /></a>
+        <a class="navbar-brand" href="/"><img src='/assets/images/pawpark-logo.svg' width="100" /></a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mx-auto mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Beranda</a>
+                    <a class="nav-link" href="/pawhub/bookings">Booking</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#layanan">Layanan</a>
+                    <a class="nav-link" href="/pawhub/my-pets">My Pets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tentang.php">Tentang</a>
+                    <a class="nav-link" href="/pawhub/you">You</a>
                 </li>
             </ul>
             <?php
@@ -156,7 +157,7 @@
                         <a href="/logout.php" class="pill-btn-sub" title="Keluar"><i class="bi bi-box-arrow-right"></i></a>
                     </div>
                 </div>
-            <?php
+                <?php
             } else { ?>
                 <div class="d-flex gap-2">
                     <a href="/registrasi" class="btn btn-black">Daftar</a>

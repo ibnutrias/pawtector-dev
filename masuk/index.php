@@ -9,9 +9,6 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-page_start('Masuk');
-include_once '../komponen/navbar.php';
-
 // Initialize variables
 $error_msg = "";
 $email    = "";
@@ -68,6 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+page_start('Masuk');
+include_once '../komponen/navbar.php';
 ?>
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">

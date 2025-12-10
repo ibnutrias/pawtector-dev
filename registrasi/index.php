@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../core/koneksi.php";
 include_once '../core/page.php';
 page_start('Buat Akun');
@@ -35,8 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $invalid_class = "is-invalid";
         } else {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $insertStmt = $koneksi->prepare("INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)");
-            $insertStmt->bind_param("sss", $fullname, $email, $hashed_password);
+            $insertStmt = $koneksi->prepare("INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, ?)");
+            $role_id = 1;
+            $insertStmt->bind_param("sssi", $fullname, $email, $hashed_password, $role_id);
             if ($insertStmt->execute()) {
                 // Clear the form fields on success
                 $success_msg = "Akun kamu <strong>$email</strong> berhasil dibuat!";

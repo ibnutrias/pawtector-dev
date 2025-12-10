@@ -1,11 +1,12 @@
 <?php
+
 // layout.php
 
 /**
  * Renders the HTML Head and opens the Body
  */
 function page_start($page_title = 'Aplikasi') {
-  
+
 ?>
 
 <!doctype html>
