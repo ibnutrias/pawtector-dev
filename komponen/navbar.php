@@ -89,7 +89,7 @@
         padding: 2px;
         transition: transform 0.2s ease;
     }
-    
+
     .pill-group:hover {
         transform: translateY(-1px);
     }
@@ -106,12 +106,12 @@
     }
 
     .pill-btn-sub {
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
         padding: 8px 18px 8px 14px;
         text-decoration: none;
         font-size: 0.85rem;
         font-weight: 500;
-        border-left: 1px solid rgba(255,255,255,0.2);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
         border-top-right-radius: 50px;
         border-bottom-right-radius: 50px;
         transition: all 0.2s ease;
@@ -120,48 +120,54 @@
     .pill-btn-main:hover {
         color: #e0e0e0;
     }
-    
+
     .pill-btn-sub:hover {
         color: #fff;
-        background-color: rgba(255,255,255,0.1);
+        background-color: rgba(255, 255, 255, 0.1);
     }
 </style>
 
 <nav class="navbar navbar-expand-lg  sticky-top py-3  navbar-custom">
     <div class="container">
-        <a class="navbar-brand" href="/"><img src='assets/images/pawpark-logo.svg' width="100" /></a>
+        <a class="navbar-brand" href="<?= url('/') ?>"><img src='<?= url('assets/images/pawpark-logo.svg') ?>'
+                width="100" /></a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarContent">
+            <?php
+            $isLoggedIn = isset($_SESSION['user_id']);
+            $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] == 0);
+            ?>
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Beranda</a>
+                    <a class="nav-link" href="<?= url('/') ?>">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#layanan">Layanan</a>
+                    <a class="nav-link" href="<?= url('/#layanan') ?>">Layanan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tentang.php">Tentang</a>
+                    <a class="nav-link" href="<?= url('/tentang.php') ?>">Tentang</a>
                 </li>
             </ul>
-            <?php
-            if (isset($_SESSION['user_id'])) {
-                ?>
-                <div class="d-flex align-items-center">
-                    <div class="pill-group">
-                        <a href="/pawhub" class="pill-btn-main">My Pawhub</a>
-                        <a href="/logout.php" class="pill-btn-sub" title="Keluar"><i class="bi bi-box-arrow-right"></i></a>
-                    </div>
+            <div class="d-flex align-items-center">
+                <div class="pill-group">
+                    <?php if ($isLoggedIn): ?>
+                        <?php if ($isAdmin): ?>
+                            <a href="<?= url('admin') ?>" class="pill-btn-main">Admin Panel</a>
+                        <?php else: ?>
+                            <a href="<?= url('pawhub') ?>" class="pill-btn-main">My Pawhub</a>
+                        <?php endif; ?>
+                        <a href="<?= url('logout.php') ?>" class="pill-btn-sub" title="Keluar"><i
+                                class="bi bi-box-arrow-right"></i></a>
+                    <?php else: ?>
+                        <a href="<?= url('masuk') ?>" class="pill-btn-sub text-white">Masuk</a>
+                    <?php endif; ?>
                 </div>
-            <?php
-            } else { ?>
-                <div class="d-flex gap-2">
-                    <a href="/registrasi" class="btn btn-black">Daftar</a>
-                </div>
-            <?php } ?>
+            </div>
         </div>
     </div>
 </nav>

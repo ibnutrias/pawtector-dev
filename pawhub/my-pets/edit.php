@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /");
+    header("Location: " . url('/'));
     exit;
 }
 
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updateStmt->bind_param("sisissi", $nama, $hewan, $ras, $umur, $note, $pet_id, $owner_id);
 
         if ($updateStmt->execute()) {
-            header("Location: /pawhub/my-pets");
+            header("Location: " . url('pawhub/my-pets'));
             exit;
         } else {
             $error_msg = "Gagal mengupdate: " . $updateStmt->error;
@@ -81,21 +81,21 @@ include_once "../navbar.php";
                                 <label class="form-label fw-medium">Jenis Hewan</label>
                                 <select name="hewan" class="form-select rounded-3">
                                     <option value="1" <?php if ($pet['hewan'] == 1)
-                                        echo 'selected'; ?>>Kucing (Cat)
+                                        echo 'selected'; ?>>Kucing
                                     </option>
                                     <option value="2" <?php if ($pet['hewan'] == 2)
-                                        echo 'selected'; ?>>Anjing (Dog)
+                                        echo 'selected'; ?>>Anjing
                                     </option>
                                     <option value="3" <?php if ($pet['hewan'] == 3)
-                                        echo 'selected'; ?>>Burung (Bird)
+                                        echo 'selected'; ?>>Burung
                                     </option>
                                     <option value="4" <?php if ($pet['hewan'] == 4)
-                                        echo 'selected'; ?>>Lainnya (Other)
+                                        echo 'selected'; ?>>Lainnya
                                     </option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Ras (Breed)</label>
+                                <label class="form-label fw-medium">Ras</label>
                                 <input type="text" name="ras" class="form-control rounded-3"
                                     value="<?php echo htmlspecialchars($pet['ras']); ?>">
                             </div>
@@ -105,14 +105,15 @@ include_once "../navbar.php";
                                     value="<?php echo $pet['umur']; ?>">
                             </div>
                             <div class="col-12">
-                                <label class="form-label fw-medium">Catatan (Note)</label>
+                                <label class="form-label fw-medium">Catatan</label>
                                 <textarea name="note" class="form-control rounded-3"
                                     rows="3"><?php echo htmlspecialchars($pet['note']); ?></textarea>
                             </div>
                             <div class="col-12 mt-4">
                                 <button type="submit" class="btn btn-primary px-4 rounded-pill fw-bold">Simpan
                                     Perubahan</button>
-                                <a href="/pawhub/my-pets" class="btn btn-light px-4 rounded-pill fw-bold ms-2">Batal</a>
+                                <a href="<?= url('pawhub/my-pets') ?>"
+                                    class="btn btn-light px-4 rounded-pill fw-bold ms-2">Batal</a>
                             </div>
                         </div>
                     </form>

@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /");
+    header("Location: " . url('/'));
     exit;
 }
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("iissss", $owner_id, $hewan, $ras, $nama, $umur, $note);
 
         if ($stmt->execute()) {
-            header("Location: /pawhub/my-pets");
+            header("Location: " . url('pawhub/my-pets'));
             exit;
         } else {
             $error_msg = "Gagal menambah peliharaan: " . $stmt->error;
@@ -63,15 +63,15 @@ include_once "../navbar.php";
                             <div class="col-md-6">
                                 <label class="form-label fw-medium">Jenis Hewan</label>
                                 <select name="hewan" class="form-select rounded-3">
-                                    <option value="1">Kucing (Cat)</option>
-                                    <option value="2">Anjing (Dog)</option>
-                                    <option value="3">Burung (Bird)</option>
-                                    <option value="4">Lainnya (Other)</option>
+                                    <option value="1">Kucing</option>
+                                    <option value="2">Anjing</option>
+                                    <option value="3">Burung</option>
+                                    <option value="4">Lainnya</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Ras (Breed)</label>
+                                <label class="form-label fw-medium">Ras</label>
                                 <input type="text" name="ras" class="form-control rounded-3"
                                     placeholder="Contoh: Angora, Golden Retriever">
                             </div>
@@ -82,7 +82,7 @@ include_once "../navbar.php";
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label fw-medium">Catatan (Note)</label>
+                                <label class="form-label fw-medium">Catatan</label>
                                 <textarea name="note" class="form-control rounded-3" rows="3"
                                     placeholder="Info tambahan..."></textarea>
                             </div>
@@ -90,7 +90,8 @@ include_once "../navbar.php";
                             <div class="col-12 mt-4">
                                 <button type="submit" class="btn btn-primary px-4 rounded-pill fw-bold">Simpan
                                     Peliharaan</button>
-                                <a href="/pawhub/my-pets" class="btn btn-light px-4 rounded-pill fw-bold ms-2">Batal</a>
+                                <a href="<?= url('pawhub/my-pets') ?>"
+                                    class="btn btn-light px-4 rounded-pill fw-bold ms-2">Batal</a>
                             </div>
                         </div>
                     </form>

@@ -127,9 +127,10 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg  sticky-top py-3  navbar-custom mb-3">
+<nav class="navbar navbar-expand-lg sticky-top py-3 navbar-custom mb-3 d-print-none">
     <div class="container">
-        <a class="navbar-brand" href="/"><img src='/assets/images/pawpark-logo.svg' width="100" /></a>
+        <a class="navbar-brand" href="<?= url('/') ?>"><img src='<?= url('assets/images/pawpark-logo.svg') ?>'
+                width="100" /></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,32 +138,36 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarContent">
+            <?php
+            $isLoggedIn = isset($_SESSION['user_id']);
+            $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] == 0);
+            ?>
             <ul class="navbar-nav mx-auto mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/pawhub/bookings">Booking</a>
+                    <a class="nav-link" href="<?= url('pawhub/bookings') ?>">Booking</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pawhub/my-pets">My Pets</a>
+                    <a class="nav-link" href="<?= url('pawhub/my-pets') ?>">My Pets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pawhub/you">You</a>
+                    <a class="nav-link" href="<?= url('pawhub/you') ?>">You</a>
                 </li>
             </ul>
-            <?php
-            if (isset($_SESSION['user_id'])) {
-                ?>
-                <div class="d-flex align-items-center">
-                    <div class="pill-group">
-                        <a href="/pawhub" class="pill-btn-main">My Pawhub</a>
-                        <a href="/logout.php" class="pill-btn-sub" title="Keluar"><i class="bi bi-box-arrow-right"></i></a>
-                    </div>
+            <div class="d-flex align-items-center">
+                <div class="pill-group">
+                    <?php if ($isLoggedIn): ?>
+                        <?php if ($isAdmin): ?>
+                            <a href="<?= url('admin') ?>" class="pill-btn-main">Admin Panel</a>
+                        <?php else: ?>
+                            <a href="<?= url('pawhub') ?>" class="pill-btn-main">My Pawhub</a>
+                        <?php endif; ?>
+                        <a href="<?= url('logout.php') ?>" class="pill-btn-sub" title="Keluar"><i
+                                class="bi bi-box-arrow-right"></i></a>
+                    <?php else: ?>
+                        <a href="<?= url('masuk') ?>" class="pill-btn-sub text-white">Masuk</a>
+                    <?php endif; ?>
                 </div>
-                <?php
-            } else { ?>
-                <div class="d-flex gap-2">
-                    <a href="/registrasi" class="btn btn-black">Daftar</a>
-                </div>
-            <?php } ?>
+            </div>
         </div>
     </div>
 </nav>

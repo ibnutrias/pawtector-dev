@@ -5,41 +5,40 @@ include_once '../core/page.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../index.php");
+    header("Location: " . url('/'));
     exit;
 }
 
 // Initialize variables
 $error_msg = "";
-$email    = "";
+$email = "";
 $invalid_class = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email    = htmlspecialchars(trim($_POST['email']));
+    $email = htmlspecialchars(trim($_POST['email']));
     $password = $_POST['password'];
 
     if (empty($email) || empty($password)) {
-        $error_msg = "Please fill in all fields.";
+        $error_msg = "Tolong isi email dan password.";
         $invalid_class = "is-invalid";
     } else {
-        // 1. UPDATED QUERY: Check your database column names here!
-        // If your database uses 'full_name' instead of 'fullname', change it below.
-        $stmt = $koneksi->prepare("SELECT id, fullname, password FROM users WHERE email = ?");
-        
+        // 1. UPDATED QUERY: Fetch 'role' as well
+        $stmt = $koneksi->prepare("SELECT id, fullname, password, role FROM users WHERE email = ?");
+
         if ($stmt) {
             $stmt->bind_param("s", $email);
             $stmt->execute();
-            
+
             // 2. USE get_result() INSTEAD OF bind_result()
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
                 // 3. Fetch data as an associative array
                 $row = $result->fetch_assoc();
-                
+
                 // Securely access the password from the array
-                $stored_hash = $row['password']; 
+                $stored_hash = $row['password'];
 
                 if (password_verify($password, $stored_hash)) {
                     // Login Success
@@ -47,9 +46,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['user_id'] = $row['id'];
                     $_SESSION['fullname'] = $row['fullname'];
                     $_SESSION['email'] = $email;
+                    $_SESSION['role'] = $row['role']; // Store Role
 
-                    header("Location: ../index.php");
-                    exit;
+                    // Redirect based on Role (0 = Admin, 1 = User)
+                    if ($row['role'] == "0") {
+                        header("Location: " . url('admin'));
+                        exit();
+                    } else {
+                        header("Location: " . url('pawhub'));
+                        exit();
+                    }
                 } else {
                     $error_msg = "Password salah.";
                     $invalid_class = "is-invalid";
@@ -90,11 +96,10 @@ include_once '../komponen/navbar.php';
                 <?php endif; ?>
 
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" novalidate>
-                    
+
                     <div class="form-floating mb-2">
-                        <input type="email" class="form-control rounded-3 <?php echo $invalid_class; ?>"
-                            id="email" name="email" placeholder="name@example.com"
-                            value="<?php echo $email; ?>">
+                        <input type="email" class="form-control rounded-3 <?php echo $invalid_class; ?>" id="email"
+                            name="email" placeholder="name@example.com" value="<?php echo $email; ?>">
                         <label for="email">Email</label>
                     </div>
 
@@ -112,7 +117,7 @@ include_once '../komponen/navbar.php';
                 <div class="text-center mt-4 pt-2 border-top">
                     <p class="mb-0 text-secondary">
                         Belum punya akun?
-                        <a href="register.php" class="link-primary text-decoration-none fw-bold">Daftar</a>
+                        <a href="<?= url('registrasi') ?>" class="link-primary text-decoration-none fw-bold">Daftar</a>
                     </p>
                 </div>
 

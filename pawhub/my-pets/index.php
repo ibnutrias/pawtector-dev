@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /");
+    header("Location: " . url('/'));
     exit;
 }
 require_once "../../core/koneksi.php";
@@ -29,7 +29,7 @@ $stmt->close();
 <div class="container pb-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold mb-0">Peliharaan Saya</h4>
-        <a href="/pawhub/my-pets/add.php" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
+        <a href="<?= url('pawhub/my-pets/add.php') ?>" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
             <i class="bi bi-plus-lg me-2"></i>Tambah
         </a>
     </div>
@@ -73,14 +73,14 @@ $stmt->close();
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-4">
-                                        <li><a class="dropdown-item"
-                                                href="/pawhub/my-pets/edit.php?id=<?php echo $pet['id']; ?>">Edit</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item text-danger"
-                                                href="/pawhub/my-pets/delete.php?id=<?php echo $pet['id']; ?>"
-                                                onclick="return confirm('Hapus peliharaan ini?');">Hapus</a></li>
+                                            <li><a class="dropdown-item"
+                                                href="<?= url('pawhub/my-pets/edit.php?id=' . $pet['id']) ?>">Edit</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item text-danger"
+                                                href="<?= url('pawhub/my-pets/delete.php?id=' . $pet['id']) ?>"
+                                                onclick="return confirm('Yakin ingin menghapus?')">Hapus</a></li>
                                     </ul>
                                 </div>
                             </div>

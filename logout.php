@@ -1,13 +1,13 @@
 <?php
 session_start();
-echo isset($_SESSION['user_id']);
+require_once 'core/koneksi.php';
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    echo "Logged out";
     session_destroy();
-    header("Location: /");
+    header("Location: " . url('/'));
+    exit;
 } else {
-    echo "asdsad";
-    header("Location: /");
+    header("Location: " . url('/'));
+    exit;
 }
 ?>

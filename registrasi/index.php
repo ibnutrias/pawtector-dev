@@ -11,21 +11,21 @@ include_once '../komponen/navbar.php';
 $success_msg = "";
 $error_msg = "";
 $fullname = "";
-$email    = "";
+$email = "";
 $password = "";
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1. Get and sanitize input
     $fullname = htmlspecialchars(trim($_POST['fullname']));
-    $email    = htmlspecialchars(trim($_POST['email']));
+    $email = htmlspecialchars(trim($_POST['email']));
     $password = $_POST['password'];
 
     // 2. Validate input
     if (empty($fullname) || empty($email) || empty($password)) {
-        $error_msg = "Please fill in all fields.";
+        $error_msg = "Mohon isi semua data.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_msg = "Invalid email format.";
+        $error_msg = "Format email tidak valid.";
     } else {
         $checkStmt = $koneksi->prepare("SELECT id FROM users WHERE email = ?");
         $checkStmt->bind_param("s", $email);
@@ -86,15 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" novalidate>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control rounded-3 <?php echo $invalid_class; ?>"
-                            id="fullname" name="fullname" placeholder="Name"
-                            value="<?php echo $fullname; ?>">
+                        <input type="text" class="form-control rounded-3 <?php echo $invalid_class; ?>" id="fullname"
+                            name="fullname" placeholder="Name" value="<?php echo $fullname; ?>">
                         <label for="fullname">Nama Lengkap</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="email" class="form-control rounded-3 <?php echo $invalid_class; ?>"
-                            id="email" name="email" placeholder="name@example.com"
-                            value="<?php echo $email; ?>">
+                        <input type="email" class="form-control rounded-3 <?php echo $invalid_class; ?>" id="email"
+                            name="email" placeholder="name@example.com" value="<?php echo $email; ?>">
                         <label for="email">Email</label>
                     </div>
 
@@ -112,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="text-center mt-4 pt-2 border-top">
                     <p class="mb-0 text-secondary">
                         Sudah punya akun?
-                        <a href="/masuk" class="link-primary text-decoration-none fw-bold">Masuk</a>
+                        <a href="<?= url('masuk') ?>" class="link-primary text-decoration-none fw-bold">Masuk</a>
                     </p>
                 </div>
 
