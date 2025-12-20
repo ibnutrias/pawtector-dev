@@ -17,7 +17,7 @@ $appointId = intval($_GET['id']);
 // Fetch Appointment Details
 $sql = "
     SELECT 
-        a.id, a.appointment_date, a.appointment_time, a.status, a.notes, a.service,
+        a.id, a.appointment_date, a.appointment_time, a.status, a.notes, a.service, a.total_price,
         u.fullname as client_name, u.email as client_email,
         p.nama as pet_name, p.ras as pet_breed
     FROM appointments a
@@ -173,7 +173,14 @@ if (!$booking) {
         </div>
         <div class="info-row">
             <span class="info-label">Layanan</span>
-            <span class="info-value"><?= htmlspecialchars($booking['service'] ?? 'Daycare') ?></span>
+            <span class="info-value">
+                <span class="status-badge"><?= htmlspecialchars($booking['service'] ?? 'Daycare') ?></span>
+            </span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Total Harga</span>
+            <span class="info-value" style="font-weight: bold; font-size: 1.1em;">Rp
+                <?= number_format($booking['total_price'], 0, ',', '.') ?></span>
         </div>
 
         <div class="divider"></div>

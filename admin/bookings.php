@@ -19,15 +19,19 @@ $msgType = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_status'])) {
     $appointId = intval($_POST['appointment_id']);
     $newStatus = $_POST['status'];
+    // Ambil harga dari input, hapus 'Rp', titik, dan spasi jika ada, konversi ke float
+    $rawPrice = $_POST['price'] ?? 0;
+    $cleanPrice = preg_replace('/[^0-9]/', '', $rawPrice); // Hanya angka
+    $newPrice = floatval($cleanPrice);
 
 
     // Allowed statuses
     $allowed = ['pending', 'active', 'finished', 'cancelled'];
 
     if (in_array($newStatus, $allowed)) {
-        $updateSql = "UPDATE appointments SET status = ? WHERE id = ?";
+        $updateSql = "UPDATE appointments SET status = ?, total_price = ? WHERE id = ?";
         $stmt = $koneksi->prepare($updateSql);
-        $stmt->bind_param("si", $newStatus, $appointId);
+        $stmt->bind_param("sdi", $newStatus, $newPrice, $appointId);
 
         if ($stmt->execute()) {
             if ($stmt->affected_rows > 0) {
@@ -51,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_status'])) {
 // --- FETCH ALL BOOKINGS ---
 $sql = "
     SELECT 
-        a.id, a.appointment_date, a.appointment_time, a.status, a.notes, a.service,
+        a.id, a.appointment_date, a.appointment_time, a.status, a.notes, a.service, a.total_price,
         u.fullname as client_name,
         p.nama as pet_name, p.ras as pet_breed
     FROM appointments a
@@ -91,6 +95,7 @@ include_once "../pawhub/navbar.php";
                             <th>Klien & Hewan</th>
                             <th>Catatan</th>
                             <th>Status</th>
+                            <th>Total Harga</th>
                             <th class="text-end pe-4">Aksi</th>
                         </tr>
                     </thead>
@@ -121,6 +126,11 @@ include_once "../pawhub/navbar.php";
                                     <td>
                                         <?php renderStatusBadge($row['status']); ?>
                                     </td>
+                                    <td>
+                                        <div class="fw-bold text-primary">
+                                            Rp <?= number_format($row['total_price'], 0, ',', '.') ?>
+                                        </div>
+                                    </td>
                                     <td class="text-end pe-4">
                                         <form method="POST" class="d-inline-flex gap-2">
                                             <input type="hidden" name="appointment_id" value="<?= $row['id'] ?>">
@@ -136,6 +146,14 @@ include_once "../pawhub/navbar.php";
                                                 <option value="cancelled" <?= $row['status'] == 'cancelled' ? 'selected' : '' ?>>
                                                     Dibatalkan</option>
                                             </select>
+
+                                            <div class="input-group input-group-sm" style="width: 140px;">
+                                                <span class="input-group-text">Rp</span>
+                                                <input type="text" name="price" class="form-control" placeholder="0"
+                                                    value="<?= number_format($row['total_price'], 0, ',', '.') ?>"
+                                                    title="Masukkan harga (hanya angka)"
+                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            </div>
 
                                             <button type="submit" class="btn btn-sm btn-outline-primary" title="Update Status">
                                                 <i class="bi bi-check-lg"></i>

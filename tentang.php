@@ -94,6 +94,12 @@ include_once 'komponen/navbar.php';
             </div>
         </div>
     </div>
+    <div class="col-12 text-center mt-3">
+        <a href="<?= url('syarat-ketentuan.php') ?>" class="btn btn-outline-dark rounded-pill">
+            Lihat Syarat & Ketentuan Lengkap
+        </a>
+    </div>
+</div>
 </div>
 
 <hr class="container opacity-10 my-5">

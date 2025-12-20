@@ -203,7 +203,8 @@ include_once "../navbar.php";
                         <div class="form-check mb-4 bg-light p-3 rounded">
                             <input class="form-check-input" type="checkbox" name="terms" id="terms" required>
                             <label class="form-check-label small" for="terms">
-                                Saya setuju dengan <a href="#">Syarat & Ketentuan</a> Yang Berlaku.
+                                Saya setuju dengan <a href="<?= url('syarat-ketentuan.php') ?>" target="_blank">Syarat &
+                                    Ketentuan</a> Yang Berlaku.
                             </label>
                         </div>
 
@@ -218,7 +219,8 @@ include_once "../navbar.php";
             </div>
 
             <div class="text-center mt-4">
-                <a href="<?= url('pawhub/bookings') ?>" class="text-decoration-none text-muted"><i class="bi bi-arrow-left"></i> Kembali ke
+                <a href="<?= url('pawhub/bookings') ?>" class="text-decoration-none text-muted"><i
+                        class="bi bi-arrow-left"></i> Kembali ke
                     Booking</a>
             </div>
 

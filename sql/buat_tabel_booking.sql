@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     notes TEXT,
     staff_notes TEXT, -- Catatan tambahan dari staff (optional, bisa juga via report)
     status ENUM('pending', 'active', 'finished', 'cancelled') DEFAULT 'pending',
+    total_price DECIMAL(15, 2) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE

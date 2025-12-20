@@ -32,9 +32,9 @@ include_once 'komponen/navbar.php';
 </style>
 <?php
 include_once "section-utama.php";
-include_once "section-layanan.php";
+include "section-layanan.php";
 include_once "section-review.php";
 include_once "section-cta.php";
-include_once 'komponen/footer.php';
+include 'komponen/footer.php';
 page_end();
 ?>

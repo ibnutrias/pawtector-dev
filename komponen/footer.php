@@ -1,5 +1,6 @@
 <footer class="py-4 bg-white border-top">
     <div class="container text-center">
-        <p class="mb-0 text-muted small">&copy; <?php echo date("Y") ?> • Dibuat dengan ❤️ oleh Tim Pawtector.</p>
+        <p class="mb-0 text-muted small">&copy; <?php echo date("Y") ?> • Dibuat dengan ❤️ oleh Tim Pawtector. </p>
     </div>
+
 </footer>
